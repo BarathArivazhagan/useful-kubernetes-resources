@@ -1,0 +1,1 @@
+kubectl run -it --rm --restart=Never busybox --image=busybox <COMMAND>
