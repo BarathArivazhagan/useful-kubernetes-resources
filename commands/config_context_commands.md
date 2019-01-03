@@ -1,3 +1,5 @@
+
+```
 $ kubectl config view -o json
 {
     "kind": "Config",
@@ -32,3 +34,4 @@ $ kubectl config view -o json
     ],
     "current-context": "minikube"
 }
+```
