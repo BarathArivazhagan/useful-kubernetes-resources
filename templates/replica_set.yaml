@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  labels:    
+    run: nginx
+  name: nginx
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:     
+      labels:       
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
