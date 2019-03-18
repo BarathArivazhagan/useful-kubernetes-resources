@@ -7,11 +7,11 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: jane # Name is case sensitive
+  name: barath
   apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: Role #this must be Role or ClusterRole
-  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  kind: Role 
+  name: pod-reader 
   apiGroup: rbac.authorization.k8s.io
 ```
 

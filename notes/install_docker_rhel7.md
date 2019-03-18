@@ -1,6 +1,15 @@
+## Install docker in RHEL7 
+
+- Enable extras as docker is part of extras 
+
+```
 $ sudo yum-config-manager --enable "Red Hat Enterprise Linux Server 7 Extra(RPMs)"
 $ sudo yum install docker -y
+```
 
+- Verify docker installation
+
+```
 $ docker version
 Client:
  Version:         1.13.1
@@ -20,3 +29,4 @@ Server:
  Built:           Fri Feb  8 20:24:43 2019
  OS/Arch:         linux/amd64
  Experimental:    false
+ ```

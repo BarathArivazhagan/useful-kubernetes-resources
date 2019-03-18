@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongo-ebs
+spec:
+  containers:
+  - image: mongo
+    name: mongo-pod
+    volumeMounts:
+    - mountPath: /data/db
+      name: mongo-volume
+  volumes:
+  - name: mongo-volume
+    awsElasticBlockStore:
+      volumeID: <Volume-ID>
+      fsType: ext4

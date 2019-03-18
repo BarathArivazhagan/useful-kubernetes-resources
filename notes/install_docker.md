@@ -1,3 +1,6 @@
+## Install docker in AWS EC2 AMAZON Linux2
+
+```
 #!/bin/bash
 # 
 # steps taken verbatim from:
@@ -12,3 +15,4 @@ sudo usermod -a -G docker ec2-user
 # Also install some common sense stuff
 sudo yum install -y git
 sudo yum -y groupinstall "Development Tools"
+```
