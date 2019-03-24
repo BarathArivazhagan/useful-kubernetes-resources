@@ -1,7 +1,7 @@
 ## Deploy confluent kafka cluster using helm
 
 
-### Setup service account for tiller (RBAC)
+- Setup service account for tiller (RBAC)
 
 ```
 $ kubectl create serviceaccount --namespace kube-system tiller
@@ -9,7 +9,7 @@ $ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-ad
 $ helm init --service-account tiller --upgrade
 ```
 
-### Add confluent helm charts to the helm repository
+- Add confluent helm charts to the helm repository
 
 ```
 $ helm repo add confluent https://confluentinc.github.io/cp-helm-charts/
@@ -17,7 +17,7 @@ $ helm repo update
 $ helm install confluent/cp-helm-charts
 ```
 
-### Play with Kafka cluster
+- Play with Kafka cluster
 
 ```
 
