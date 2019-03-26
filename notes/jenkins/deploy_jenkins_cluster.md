@@ -9,3 +9,10 @@ $ kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --servic
 
 
 ```
+
+- Get admin user password
+
+```
+Get your 'admin' user password by running:
+  printf $(kubectl get secret --namespace jenkins jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+```
