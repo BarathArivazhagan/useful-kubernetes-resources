@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: busybox-multi-pod
+  name: busybox-multi-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: busybox-multi-pod
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: busybox-multi-pod
+    spec:
+      containers:
+      - image: busybox
+        imagePullPolicy: Always
+        command: ["/bin/sh","-c","sleep 1000"]
+        name: busybox-1
+        resources: {}
+      - image: busybox
+        imagePullPolicy: Always
+        command: ["/bin/sh","-c","sleep 1000"]
+        name: busybox-2
+        resources: {}
+
+
