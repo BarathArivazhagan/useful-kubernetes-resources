@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kube-springboot-app
+  name: kube-springboot-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-springboot-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kube-springboot-app
+    spec:
+      containers:
+      - image: barathece91/kube-demo
+        imagePullPolicy: Always
+        name: nginx
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kube-springboot-app
+  name: kube-springboot-service
+spec:  
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: kube-springboot-app
+  sessionAffinity: None
+  type: ClusterIP
+

@@ -1,14 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: busybox-multi-pod
-  name: busybox-multi-pod
+    app: busybox-node-selector
+  name: busybox-node-selector-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: busybox-multi-pod
+      app: busybox-node-selector
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        run: busybox-multi-pod
+        app: busybox-node-selector
     spec:
       containers:
       - image: busybox
@@ -31,16 +31,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-      - image: busybox
-        imagePullPolicy: Always
-        command: ["/bin/sh","-c","sleep 1000"]
-        name: busybox-2
-        resources:
-          requests:
-            memory: "1Mi"
-            cpu: "50m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+      nodeSelector:
+        app: projectA
 
 
