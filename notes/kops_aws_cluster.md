@@ -18,39 +18,30 @@ $ export KOPS_STATE_STORE=s3://kops-east-bucket
 $ export NAME=demo.k8s.local
 ```
 
-- Provision kubernetes cluster
+- Create AWS resources (Optional: using aws cli)
 
 ```
-$ kops create cluster dev-k8s --dns-zone Z3B1VVYA5I0U01
-
 $ aws aws route53 list-hosted-zones
 
 $ aws route53 list-hosted-zones
-$ aws s3api create-bucket --bucket dev-k8s-state-store
 $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
-$ aws s3api create-bucket --bucket dev-k8s-barath-devops-state-store --region us-east-1
-$ export NAME=dev-k8s.barath-devops.com
-$ export KOPS_STATE_STORE=s3://dev-k8s-barath-devops-state-store
+```
 
-$  kops create cluster dev-k8s --zone us-east-1a
-$ kops create cluster dev-k8s --zones=us-east-1b,us-east-1c,us-east-1d
-$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d
-$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d sshpublickey admin -i ~/.ssh/id_rsa.pub
-$kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d sshpublickey admin  ~/.ssh/id_rsa.pub
+- Provision kubernetes cluster
+
+```
+$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d sshpublickey admin  ~/.ssh/id_rsa.pub
 $ kops create cluster dev-k8s.barath-devops.com    --zones=us-east-1b,us-east-1c,us-east-1d --clous=aws
-$  kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d --cloud=aws
+$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d --cloud=aws
 $ kops update cluster
 $ kops update cluster dev-k8s.barath-devops.com
 $ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
 $ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
-$ cd .ssh/
-$ ls
-$ ssh-key
 $ ssh-keygen
 
 $ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
-$ kops update clsuter dev-k8s.barath-devops.com
-$ kops update cluster dev-k8s.barath-devops.com
+
+# update the kubernetes cluster to issue the generated certificates
 $ kops update cluster dev-k8s.barath-devops.com --yes
 $ kops rolling-update cluster
 $ kops update clsuter dev-k8s.barath-devops.com --cloud-only
