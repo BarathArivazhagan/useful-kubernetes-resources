@@ -24,7 +24,7 @@ spec:
         appdb: mongo-db
     spec:
       containers:
-      - name: rsvpd-db
+      - name: mongo-db
         image: mongo:3.3
         ports:
         - containerPort: 27017
