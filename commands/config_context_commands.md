@@ -1,4 +1,23 @@
 
+#### current context
+
+```
+$ kubectl config current-context
+```
+
+#### use context
+
+```
+$ kubectl config use-context demo
+```
+
+#### set-context
+
+```
+$ kubectl config set-context demo --namespace=demo --user=demo-user
+```
+
+
 ```
 $ kubectl config view -o json
 {
