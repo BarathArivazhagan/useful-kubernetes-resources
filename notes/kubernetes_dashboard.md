@@ -1,13 +1,14 @@
 
+#### Deploy kubernetes dashboard resources
 
 ```
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 
 ```
 
+#### Configure serviceaccount for kubernetes dashboard
 
-dashboard-adminuser.yaml
-
+##### dashboard-adminuser.yaml
 ```yaml
 
 apiVersion: v1
