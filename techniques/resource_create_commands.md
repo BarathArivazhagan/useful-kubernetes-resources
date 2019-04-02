@@ -1,4 +1,4 @@
-## Kubernetes imperative commands to create resources
+### Kubernetes imperative commands to create resources
 
 - <b>Namespace</b>
 
@@ -31,12 +31,25 @@ $ kubectl create serviceaccount barath -n demo
 $ k create rolebinding pod-reader-binding --role=pod-reader --serviceaccount=demo:barath -n demo
 ```
 
+- <b>Set credentials</b>
 
 ```
-kubectl config set-credentials barath --token=
-
+$ kubectl config set-credentials barath --token=<<REPLACE_TOKEN>>
 ```
 
+- <b>Set context</b>
 ```
-kubectl config set-context barath --namespace=demo --cluster=kubernetes --user=barath
+$ kubectl config set-context barath --namespace=demo --cluster=kubernetes --user=barath
 ```
+
+- <b>Switch context</b>
+```
+$ kubectl config use-context barath
+```
+
+- <b> Verify context
+  
+```
+$ kubectl config current-context
+```
+
