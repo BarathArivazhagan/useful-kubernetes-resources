@@ -10,6 +10,13 @@
  sudo mv ./kops /usr/local/bin/
 ```
 
+- Install kubectl to interact with kubernets cluster
+```
+$ curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+$ chmod +x ./kubectl
+$ sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
 - Export below environment variables (specific to AWS)
 
 ```
@@ -30,30 +37,21 @@ $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 - Provision kubernetes cluster
 
 ```
-$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d sshpublickey admin  ~/.ssh/id_rsa.pub
-$ kops create cluster dev-k8s.barath-devops.com    --zones=us-east-1b,us-east-1c,us-east-1d --clous=aws
-$ kops create cluster dev-k8s.barath-devops.com --zones=us-east-1b,us-east-1c,us-east-1d --cloud=aws
-$ kops update cluster
-$ kops update cluster dev-k8s.barath-devops.com
-$ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
-$ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
-$ ssh-keygen
+$ kops create cluster $NAME --zones=us-east-1b,us-east-1c,us-east-1d --clous=aws
+$ kops create cluster $NAME --zones=us-east-1b,us-east-1c,us-east-1d --cloud=aws
 
-$ kops create secret --name dev-k8s.barath-devops.com sshpublickey admin -i ~/.ssh/id_rsa.pub
+## update the cluster information
+$ kops update cluster $NAME 
+$ kops create secret --name $NAME  sshpublickey admin -i ~/.ssh/id_rsa.pub
+
+$ kops create secret --name $NAME sshpublickey admin -i ~/.ssh/id_rsa.pub
 
 # update the kubernetes cluster to issue the generated certificates
-$ kops update cluster dev-k8s.barath-devops.com --yes
+
+$ kops update cluster $NAME  --yes
 $ kops rolling-update cluster
-$ kops update clsuter dev-k8s.barath-devops.com --cloud-only
+$ kops update clsuter $NAME --cloud-only
 ```
-
-- Install kubectl to interact with kubernets cluster
-```
-$ curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-$ chmod +x ./kubectl
-$ sudo mv ./kubectl /usr/local/bin/kubectl
-```
-
 - Verify the cluster status
 
 ```
