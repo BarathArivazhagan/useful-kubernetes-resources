@@ -34,11 +34,16 @@ $ aws route53 list-hosted-zones
 $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 ```
 
-- Provision kubernetes cluster
+- Provision public kubernetes cluster ( for private change topology to private)
 
 ```
-$ kops create cluster $NAME --zones=us-east-1b,us-east-1c,us-east-1d --clous=aws
-$ kops create cluster $NAME --zones=us-east-1b,us-east-1c,us-east-1d --cloud=aws
+$ kops create cluster $NAME  --cloud=aws --networking=flannel \
+  --topology=public \
+  --master-size=3 \
+  --master-zones=us-east-1a,us-east-1b,us-east-1c \
+  --node-size=3 \
+  --zones=us-east-1b,us-east-1c,us-east-1d
+
 
 ## update the cluster information
 $ kops update cluster $NAME 
