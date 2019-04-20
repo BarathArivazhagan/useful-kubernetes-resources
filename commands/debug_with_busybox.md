@@ -1,5 +1,5 @@
-## Busybox for running commands against other resources
+## Busybox for debugging commands against other resources
 
 ```
-$ kubectl run -it --rm --restart=Never busybox --image=busybox <COMMAND>
+$ kubectl run -it --rm --restart=Never busybox --image=busybox sh
 ```
