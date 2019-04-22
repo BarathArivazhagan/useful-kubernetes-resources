@@ -39,12 +39,12 @@ $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 ```
 $ kops create cluster $NAME  --cloud=aws --networking=flannel \
   --topology=public \
-  --master-count=3 \
+  --master-count=1 \
   --master-size=t2.micro \
-  --master-zones=us-east-1a,us-east-1b,us-east-1c \
-  --node-count=3 \
+  --master-zones=us-east-1a \
+  --node-count=2 \
   --node-size=t2.micro \
-  --zones=us-east-1b,us-east-1c,us-east-1d
+  --zones=us-east-1a,us-east-1b
 
 
 ## update the cluster information

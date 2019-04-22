@@ -1,11 +1,18 @@
-## How to switch to different namespace with same context
+#### How to switch to different namespace with same context
 
+-
 ```
-$ kubectl config set-context minikube --namespace=demo
+$ kubectl config set-context demo-context --namespace=demo 
 ```
 
-where minikube is the name of the context. you can find the current context using below command 
+where demo-context is the name of the context. 
 
+- View the current context
 ```
 $ kubectl config current-context
+```
+
+- Switch the context to demo-context
+```
+$ kubectl config use-context demo-context
 ```
