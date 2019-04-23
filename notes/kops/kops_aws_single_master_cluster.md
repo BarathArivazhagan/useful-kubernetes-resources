@@ -21,16 +21,13 @@ $ sudo mv ./kubectl /usr/local/bin/kubectl
 
 ```
 $ export REGION=us-east-1
-$ export KOPS_STATE_STORE=s3://kops-east-bucket
+$ export KOPS_STATE_STORE=s3://kops-east-bucket // ensure bucket is present in the same region as mentioned above
 $ export NAME=demo.k8s.local
 ```
 
-- Create AWS resources (Optional: using aws cli)
+- Create AWS resources (Optional: using aws cli to create required resources)
 
 ```
-$ aws aws route53 list-hosted-zones
-
-$ aws route53 list-hosted-zones
 $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 ```
 
@@ -44,7 +41,8 @@ $ kops create cluster $NAME  --cloud=aws --networking=flannel \
   --master-zones=us-east-1a \
   --node-count=2 \
   --node-size=t2.micro \
-  --zones=us-east-1a,us-east-1b
+  --zones=us-east-1a,us-east-1b \
+  --state=$KOPS_STATE_STORE
 
 
 ## update the cluster information
@@ -64,12 +62,11 @@ $ kops update clsuter $NAME --cloud-only
 ```
 $ kubectl cluster-info
 
-# to list the nodes
+# to list the kubernetes worker nodes
 $ kubectl get nodes
 ```
 
 - Create a kubernetes deployment
-
 ```
 $ kubectl run nginx --image=nginx --port=80
 
@@ -83,7 +80,7 @@ $ kubect get svc
 
 - Tear down the kubernetes cluster
 ```
-$ kops delete cluster dev-k8s.barath-devops.com --yes
+$ kops delete cluster $NAME --yes
 ```
 
 - Suggestions:
