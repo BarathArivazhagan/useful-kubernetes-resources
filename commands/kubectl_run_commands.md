@@ -1,16 +1,15 @@
 ### kubectl run commands
 
-```
-Usage:
-  kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
+```sh
+kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
 ```
 
-#### Start a single instance of nginx.
+### Start a single instance of nginx.
 ```
 kubectl run nginx --image=nginx
 ```
 
-# Start a single instance of nginx and let the container expose port 80 .
+### Start a single instance of nginx and let the container expose port 80 .
 ```
 kubectl run nginx --image=nginx --port=80
 ```
