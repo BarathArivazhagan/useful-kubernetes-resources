@@ -14,7 +14,7 @@ kubectl run nginx --image=nginx
 kubectl run nginx --image=nginx --port=80
 ```
 
-### Start a single instance of nginx and set environment variables "app=demo" and "POD_NAMESPACE=default" in the container.
+### Start a single instance of nginx and set environment variables 'app=demo' and 'POD_NAMESPACE=default' in the container.
 ```
 kubectl run nginx --image=nginx --env="app=demo" --env="POD_NAMESPACE=default"
 ```
