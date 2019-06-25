@@ -43,6 +43,12 @@ $ export NAME=demo.k8s.local
 ```
 $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 ```
+- <b>Create public key </b>
+
+```
+$ ssh-keygen # generate an ssh key
+$ kops create secret --name demo.k8s.local sshpublickey admin -i ~/.ssh/id_rsa.pub
+```
 
 - <b>Provision public kubernetes cluster</b> ( for private change topology to private)
 
