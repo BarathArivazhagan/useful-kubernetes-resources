@@ -1,6 +1,6 @@
 
 
-### Create kubernetes cluster using kops
+## Create kubernetes cluster using kops
 
 - <b>Setup IAM user </b>
 
@@ -30,7 +30,7 @@ $ chmod +x ./kubectl
 $ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-- Export below environment variables (specific to AWS)
+- <b>Environment variables</b>(specific to AWS)
 
 ```
 $ export REGION=us-east-1
