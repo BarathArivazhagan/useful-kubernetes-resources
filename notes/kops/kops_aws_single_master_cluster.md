@@ -23,7 +23,7 @@ AmazonVPCFullAccess
  sudo mv ./kops /usr/local/bin/
 ```
 
-- <b>Install kubectl/<b>
+- <b>Install kubectl</b>
 ```
 $ curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 $ chmod +x ./kubectl
@@ -38,13 +38,13 @@ $ export KOPS_STATE_STORE=s3://kops-east-bucket // ensure bucket is present in t
 $ export NAME=demo.k8s.local
 ```
 
-- Create AWS resources (Optional: using aws cli to create required resources)
+- <b>Create AWS resources </b> (Optional: using aws cli to create required resources)
 
 ```
 $ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
 ```
 
-- Provision public kubernetes cluster ( for private change topology to private)
+- <b>Provision public kubernetes cluster</b> ( for private change topology to private)
 
 ```
 $ kops create cluster $NAME  --cloud=aws --networking=flannel \
@@ -70,7 +70,7 @@ $ kops update cluster $NAME  --yes
 $ kops rolling-update cluster
 $ kops update clsuter $NAME --cloud-only
 ```
-- Verify the cluster status
+- <b>Verify the cluster status</b>
 
 ```
 $ kubectl cluster-info
@@ -79,7 +79,7 @@ $ kubectl cluster-info
 $ kubectl get nodes
 ```
 
-- Create a kubernetes deployment
+- <b>Create a kubernetes deployment</b>
 ```
 $ kubectl run nginx --image=nginx --port=80
 
