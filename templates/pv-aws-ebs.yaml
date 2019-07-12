@@ -10,5 +10,5 @@ spec:
  persistentVolumeReclaimPolicy: Recycle
  storageClassName: slow
  awsElasticBlockStore: 
- fsType: "ext4" 
+    fsType: "ext4" 
     volumeID: "vol-xxx" 
