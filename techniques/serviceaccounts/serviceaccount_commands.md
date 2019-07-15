@@ -1,4 +1,4 @@
-### Kubernetes imperative commands to create resources
+### Kubernetes imperative commands to create serviceaccounts
 
 - <b>Namespace</b>
 

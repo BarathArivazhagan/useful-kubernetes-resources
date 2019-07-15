@@ -1,4 +1,4 @@
-## Install docker in AWS EC2 AMAZON Linux2
+####  Install docker in aws ec2 amazon linux2
 
 ```
 #!/bin/bash

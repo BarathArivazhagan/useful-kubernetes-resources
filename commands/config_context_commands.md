@@ -1,22 +1,24 @@
+## Kubernetes Cluster Context Commands
 
-#### current context
+- <b>current context</b>
 
 ```
 $ kubectl config current-context
 ```
 
-#### use context
+- <b>use context</b>
 
 ```
 $ kubectl config use-context demo
 ```
 
-#### set-context
+- <b>set-context</b>
 
 ```
 $ kubectl config set-context demo --namespace=demo --user=demo-user
 ```
 
+- <b>context view</b>
 
 ```
 $ kubectl config view -o json

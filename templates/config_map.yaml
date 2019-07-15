@@ -3,4 +3,4 @@ data:
   spring.profiles.active: k8s
 kind: ConfigMap
 metadata:
-  name: spring-config-map
+  name: demo-config-map

@@ -4,11 +4,11 @@ metadata:
  name: pv-aws
 spec:
  capacity:
-   storage: 12Gi
+   storage: 1Gi
  accessModes:
    - ReadWriteOnce
- persistentVolumeReclaimPolicy: Recycle
- storageClassName: slow
+ persistentVolumeReclaimPolicy: Delete
+ storageClassName: default
  awsElasticBlockStore: 
     fsType: "ext4" 
     volumeID: "vol-xxx" 
