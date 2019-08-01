@@ -30,6 +30,12 @@ $ chmod +x ./kubectl
 $ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
+- <b>Create AWS resources </b> (Optional: using aws cli to create required resources)
+
+```
+$ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
+```
+
 - <b>Environment variables</b>(specific to AWS)
 
 ```
@@ -38,16 +44,11 @@ $ export KOPS_STATE_STORE=s3://kops-east-bucket // ensure bucket is present in t
 $ export NAME=demo.k8s.local
 ```
 
-- <b>Create AWS resources </b> (Optional: using aws cli to create required resources)
 
-```
-$ aws s3api create-bucket --bucket dev-k8s-state-store --region us-east-1
-```
 - <b>Create public key </b>
 
 ```
 $ ssh-keygen # generate an ssh key
-$ kops create secret --name demo.k8s.local sshpublickey admin -i ~/.ssh/id_rsa.pub
 ```
 
 - <b>Provision public kubernetes cluster</b> ( for private change topology to private)
@@ -63,22 +64,23 @@ $ kops create cluster $NAME  --cloud=aws --networking=flannel \
   --zones=us-east-1a,us-east-1b \
   --state=$KOPS_STATE_STORE
 
+```
 
-## update the cluster information
-$ kops update cluster $NAME 
+- <b>Update the cluster information</b>
+
+```
+$ kops update cluster $NAME --yes
 $ kops create secret --name $NAME  sshpublickey admin -i ~/.ssh/id_rsa.pub
-
-$ kops create secret --name $NAME sshpublickey admin -i ~/.ssh/id_rsa.pub
 
 # update the kubernetes cluster to issue the generated certificates
 
 $ kops update cluster $NAME  --yes
-$ kops rolling-update cluster
-$ kops update clsuter $NAME --cloud-only
+$ kops rolling-update cluster ## optional
 ```
 - <b>Verify the cluster status</b>
 
 ```
+# to view the kubernetes cluster information
 $ kubectl cluster-info
 
 # to list the kubernetes worker nodes
@@ -97,12 +99,12 @@ $ kubectl expose deployment nginx --type=NodePort
 $ kubect get svc
 ```
 
-- Tear down the kubernetes cluster
+- <b>Tear down the kubernetes cluster</b>
 ```
 $ kops delete cluster $NAME --yes
 ```
 
-- Suggestions:
+- <b>Suggestions:</b>
 
 ```
  * validate cluster: kops validate cluster
