@@ -1,0 +1,124 @@
+
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-gateway-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /userms
+        backend:
+          serviceName: user-service
+          servicePort: 9000
+      - path: /bankms
+        backend:
+          serviceName: bank-service
+          servicePort: 9001
+---
+# config map to pass environment variables to containers
+apiVersion: v1
+data:
+  spring.profiles.active: k8s
+kind: ConfigMap
+metadata:
+  name: spring-config-map
+
+---
+# config map to pass environment variables to containers
+apiVersion: v1
+data:
+  user.service.url: http://${USER_SERVICE_SERVICE_HOST}:${USER_SERVICE_SERVICE_PORT}
+  bank.service.url: http://${BANK_SERVICE_SERVICE_HOST}:${BANK_SERVICE_SERVICE_PORT}
+kind: ConfigMap
+metadata:
+  name: api-gateway-config-map
+---
+
+# deployment config for user service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app
+spec:
+  selector:
+    matchLabels:
+      app: user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: barathece91/user-service
+        ports:
+        - containerPort: 9001
+        env:
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: /userms
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+              configMapKeyRef:
+                  name: spring-config-map
+                  key: spring.profiles.active
+   
+---
+# deployment config for bank service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-app
+spec:
+  selector:
+    matchLabels:
+      app: bank-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bank-service
+    spec:
+      containers:   
+      - name: bank-service
+        image: barathece91/bank-service
+        ports:
+        - containerPort: 9000
+        env:
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: /bankms
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+              configMapKeyRef:
+                  name: spring-config-map
+                  key: spring.profiles.active   
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bank-service
+spec:
+  selector:
+    app: bank-service
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 9001
+    targetPort: 9001
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 9000
+    targetPort: 9000
+
+
