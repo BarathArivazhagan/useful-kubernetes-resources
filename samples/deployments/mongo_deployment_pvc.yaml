@@ -9,23 +9,25 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 8Gi
+      storage: 1Gi
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-db
+  name: mongodb
+  labels:
+      app: mongodb
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        appdb: mongo-db
+        app: mongodb
     spec:
       containers:
-      - name: mongo-db
-        image: mongo:3.3
+      - name: mongodb
+        image: mongo:4.2.21
         ports:
         - containerPort: 27017
         volumeMounts:
@@ -35,3 +37,20 @@ spec:
       - name: mongodb-persistent-storage
         persistentVolumeClaim:
           claimName: mongodb-pv-claim
+---
+ 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: mongodb
+  name: mongodb
+spec:  
+  ports:
+  - port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    run: mongodb
+  sessionAffinity: None
+  type: ClusterIP
